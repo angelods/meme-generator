@@ -14,30 +14,25 @@ function show_usage {
   echo "Tasks:"
   echo "  build               will build the image"
   echo "  run                 will run the meme generator, building the image if does not exist"
+  echo "  install             will install dependencies"
 }
 
 function docker_run {
   if [[  $(docker image ls | grep ${IMAGE_NAME} | wc -l) -eq 0 ]]; then
     build
+    docker_run npm install
   fi
-  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest $@"
+  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest"
   echo "+ ${CMD} $@"
   ${CMD} "$@"
 }
 
 function run {
-  if [[  $(docker image ls | grep ${IMAGE_NAME} | wc -l) -eq 0 ]]; then
-    build
-    docker_run npm install
-  fi
-  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest node index.js $@"
-  echo "+ ${CMD}"
-  ${CMD}
+  docker_run npm run generator
 }
 
 function build {
   docker build --tag $IMAGE_NAME .
-  
 }
 
 function main {
@@ -46,8 +41,12 @@ function main {
 
   case ${TASK_NAME} in
     "build")
-      build "$@"
+      build
+      docker_run npm install
       ;;
+    "install")
+      docker_run npm install --save $@
+      ;;  
     "run")
       run "$@"
       ;;

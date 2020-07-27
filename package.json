@@ -5,9 +5,11 @@
   "main": "index.js",
   "author": "angelods",
   "license": "ISC",
+  "scripts": {
+    "generator": "node index.js"
+  },
   "dependencies": {
-    "install": "^0.13.0",
-    "nodejs-meme-generator": "1.0.4",
-    "npm": "^6.14.7"
+    "nodejs-meme-generator": "^1.0.4",
+    "prompt-base": "^5.0.0"
   }
 }
