@@ -14,11 +14,13 @@ const memeGenerator = new memeLib({
   }
 });
 
+console.log(process.argv);
+const [executor, index, imageUrl, topText, bottomText] = process.argv;
 memeGenerator.generateMeme({
   // you can use either topText or bottomText
   // or both of them at the same time
-  topText: 'Meme',
-  bottomText: 'Generator',
+  topText: topText,
+  bottomText: bottomText,
   url: 'https://i.imgur.com/7FHoSIG.png'
 })
   .then(function(data) {

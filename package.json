@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "meme generator",
   "main": "index.js",
-  "scripts": {
-    "generator": "node index.js"
-  },
   "author": "angelods",
   "license": "ISC",
   "dependencies": {

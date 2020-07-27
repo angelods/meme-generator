@@ -30,14 +30,14 @@ function run {
     build
     docker_run npm install
   fi
-  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest npm run generator"
+  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest node index.js $@"
   echo "+ ${CMD}"
   ${CMD}
 }
 
 function build {
   docker build --tag $IMAGE_NAME .
-  docker_run npm install
+  
 }
 
 function main {
