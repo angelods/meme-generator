@@ -2,4 +2,4 @@
 
 This package is a meme generator
 
-To run it, use the following command `bin/task run {url-to-image} {upper-text} {bottom-text}`
+To run it, use the command `bin/task run` and follow the instructions. A file `meme.png` will be generated in the project root (for now)
