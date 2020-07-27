@@ -1,0 +1,16 @@
+{
+  "name": "meme-generator",
+  "version": "1.0.0",
+  "description": "meme generator",
+  "main": "index.js",
+  "scripts": {
+    "generator": "node index.js"
+  },
+  "author": "angelods",
+  "license": "ISC",
+  "dependencies": {
+    "install": "^0.13.0",
+    "nodejs-meme-generator": "1.0.4",
+    "npm": "^6.14.7"
+  }
+}

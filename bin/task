@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+IMAGE_NAME="meme-generator"
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_DIR="$(dirname "${SCRIPT_DIR}")"
+cd ${PROJECT_DIR}
+
+function show_usage {
+  echo "Usage: task [TASK_NAME] ..."
+  echo ""
+  echo "Tasks:"
+  echo "  build               will build the image"
+  echo "  run                 will run the meme generator, building the image if does not exist"
+}
+
+function docker_run {
+  if [[  $(docker image ls | grep ${IMAGE_NAME} | wc -l) -eq 0 ]]; then
+    build
+  fi
+  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest $@"
+  echo "+ ${CMD} $@"
+  ${CMD} "$@"
+}
+
+function run {
+  if [[  $(docker image ls | grep ${IMAGE_NAME} | wc -l) -eq 0 ]]; then
+    build
+    docker_run npm install
+  fi
+  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest npm run generator"
+  echo "+ ${CMD}"
+  ${CMD}
+}
+
+function build {
+  docker build --tag $IMAGE_NAME .
+  docker_run npm install
+}
+
+function main {
+  TASK_NAME="${1-}"
+  [[ -z ${TASK_NAME} ]] || shift
+
+  case ${TASK_NAME} in
+    "build")
+      build "$@"
+      ;;
+    "run")
+      run "$@"
+      ;;
+    *) show_usage ;;
+  esac
+}
+
+main "$@"
