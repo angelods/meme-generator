@@ -2,13 +2,15 @@
   "name": "meme-generator",
   "version": "1.0.0",
   "description": "meme generator",
-  "main": "index.js",
+  "main": "prompt.js",
   "author": "angelods",
   "license": "ISC",
   "scripts": {
-    "generator": "node index.js"
+    "prompt": "node prompt.js",
+    "server": "node server.js"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "nodejs-meme-generator": "^1.0.4",
     "prompt-base": "^5.0.0"
   }

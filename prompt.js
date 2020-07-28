@@ -1,7 +1,6 @@
-#!/usr/bin/env node
-const fs = require('fs');
+const generator = require('./src/generator');
 const Prompt = require('prompt-base');
-const generatore = require('./src/generator')
+const fs = require('fs');
 
 const topTextPrompt = new Prompt({
   message: 'Enter the top text of the meme',
@@ -30,10 +29,9 @@ topTextPrompt.run()
   })
   .then( imageUrlInput => {
     imageUrl = imageUrlInput;
-    return generatore.generate(topText, bottomText, imageUrl)
+    return generator.generate(topText, bottomText, imageUrl)
   })
   .then( data => {
     fs.writeFileSync('./meme.png', data);
-    return;
   })
   .catch( error => console.error(error));

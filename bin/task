@@ -22,13 +22,13 @@ function docker_run {
     build
     docker_run npm install
   fi
-  CMD="docker run --rm -it --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest"
+  CMD="docker run --rm -it -p 3000:3000 --mount type=bind,source="$(pwd)",target=/meme-generator $IMAGE_NAME:latest"
   echo "+ ${CMD} $@"
   ${CMD} "$@"
 }
 
 function run {
-  docker_run npm run generator
+  docker_run "$@"
 }
 
 function build {
@@ -46,9 +46,12 @@ function main {
       ;;
     "install")
       docker_run npm install --save $@
-      ;;  
-    "run")
-      run "$@"
+      ;;
+    "run-server")
+      run npm run server
+      ;;
+    "run-prompt")
+      run npm run prompt
       ;;
     *) show_usage ;;
   esac
