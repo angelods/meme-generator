@@ -21,10 +21,16 @@ let imageUrl = '';
 topTextPrompt.run()
   .then( topTextInput => {
     topText = topTextInput;
+    if (!topText || topText === '') {
+      throw new Error('invalid parameter');
+    }
     return bottomTextPrompt.run();
   })
   .then( bottomTextInput => {
     bottomText = bottomTextInput;
+    if (!bottomText || bottomText === '') {
+      throw new Error('invalid parameter');
+    }
     return imageUrlPrompt.run();
   })
   .then( imageUrlInput => {
