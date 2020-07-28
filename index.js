@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const memeLib = require('nodejs-meme-generator');
 const fs = require('fs');
 const Prompt = require('prompt-base');
+const generatore = require('./src/generator')
 
 const topTextPrompt = new Prompt({
   message: 'Enter the top text of the meme',
@@ -14,19 +14,6 @@ const bottomTextPrompt = new Prompt({
 const imageUrlPrompt = new Prompt({
   message: 'Enter the image url',
   name: 'url'
-});
-
-
-const memeGenerator = new memeLib({
-  canvasOptions: { // optional
-    canvasWidth: 500,
-    canvasHeight: 500
-  },
-  fontOptions: { // optional
-    fontSize: 26,
-    fontFamily: 'impact',
-    lineHeight: 2
-  }
 });
 
 let topText = '';
@@ -43,11 +30,7 @@ topTextPrompt.run()
   })
   .then( imageUrlInput => {
     imageUrl = imageUrlInput;
-    return memeGenerator.generateMeme({
-      topText: topText,
-      bottomText: bottomText,
-      url: 'https://imgflip.com/s/meme/Roll-Safe-Think-About-It.jpg'
-    });
+    return generatore.generate(topText, bottomText, imageUrl)
   })
   .then( data => {
     fs.writeFileSync('./meme.png', data);
