@@ -1,11 +1,11 @@
 const memeLib = require('nodejs-meme-generator');
 
 const memeGenerator = new memeLib({
-    canvasOptions: { // optional
+    canvasOptions: {
       canvasWidth: 500,
       canvasHeight: 500
     },
-    fontOptions: { // optional
+    fontOptions: {
       fontSize: 26,
       fontFamily: 'impact',
       lineHeight: 2

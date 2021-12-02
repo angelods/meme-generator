@@ -13,7 +13,8 @@ function show_usage {
   echo ""
   echo "Tasks:"
   echo "  build               will build the image"
-  echo "  run                 will run the meme generator, building the image if does not exist"
+  echo "  run-prompt          will run the meme generator from command line"
+  echo "  run-server          will run the meme generator as server (running on 3000)"
   echo "  install             will install dependencies"
 }
 
