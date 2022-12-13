@@ -10,7 +10,7 @@
     "server": "node server.js"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodejs-meme-generator": "^1.0.4",
     "prompt-base": "^5.0.0"
   }
